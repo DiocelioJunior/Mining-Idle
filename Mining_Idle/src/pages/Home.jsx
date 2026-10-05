@@ -20,7 +20,8 @@ function Home() {
     //Busca dos terrenos do player
     const terrain = terrains.find((terrain) => terrain.id === gameState.terrainId)
 
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Funções de consumo de Stamina
     function handleAddStamina(){
         //Pegue a stamina atual e peça para o sistema calcular quanto será a nova stamina.
         const newStamina = addStamina(gameState.stamina, 10);
@@ -41,11 +42,11 @@ function Home() {
             stamina: newStamina
         })
     }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     console.log(player)
     console.log(tool)
     console.log(terrain)
-    console.log(gameState.stamina)
+    console.log(gameState)
 
 
     return(
