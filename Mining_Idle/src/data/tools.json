@@ -1,0 +1,9 @@
+[
+  {
+    "id": "tool_pickaxe_basic",
+    "name": "Picareta Básica",
+    "description": "Uma picareta simples para mineração.",
+    "strengthRequired": 5,
+    "techniqueRequired": 0
+  }
+]

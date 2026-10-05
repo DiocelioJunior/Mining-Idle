@@ -1,0 +1,20 @@
+[
+  {
+    "id": "resource_coal",
+    "name": "Carvão",
+    "description": "Um recurso comum encontrado em minas.",
+    "value": 5
+  },
+  {
+    "id": "resource_copper",
+    "name": "Cobre",
+    "description": "Um metal útil e relativamente comum.",
+    "value": 10
+  },
+  {
+    "id": "resource_iron",
+    "name": "Ferro",
+    "description": "Um metal resistente e valioso.",
+    "value": 20
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "equipment_helmet_basic",
+    "name": "Capacete Básico",
+    "description": "Um capacete simples de proteção.",
+    "bonuses": {
+      "strength": 0,
+      "speed": 0,
+      "luck": 1,
+      "stamina": 0,
+      "technique": 0
+    }
+  }
+]

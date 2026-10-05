@@ -1,0 +1,13 @@
+[
+  {
+    "id": "terrain_abandoned_mine",
+    "name": "Mina Abandonada",
+    "description": "Uma antiga mina com recursos ainda não explorados.",
+    "difficulty": 1,
+    "resources": [
+      "resource_coal",
+      "resource_copper",
+      "resource_iron"
+    ]
+  }
+]

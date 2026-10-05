@@ -1,0 +1,12 @@
+[
+  {
+    "id": "player_basic",
+    "name": "Minerador",
+    "level": 1,
+    "strength": 5,
+    "speed": 5,
+    "luck": 5,
+    "stamina": 100,
+    "technique": 5
+  }
+]

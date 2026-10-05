@@ -1,0 +1,16 @@
+[
+  {
+    "id": "action_mine",
+    "name": "Minerar",
+    "description": "Tenta encontrar recursos no terreno.",
+    "baseDuration": 20,
+    "staminaCost": 10
+  },
+  {
+    "id": "action_rest",
+    "name": "Descansar",
+    "description": "Recupera stamina.",
+    "baseDuration": 20,
+    "staminaRecovery": 5
+  }
+]
