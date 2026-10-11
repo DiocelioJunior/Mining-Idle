@@ -5,6 +5,8 @@ import terrains from "../data/terrains.json";
 
 import { addStamina } from "../systems/staminaSystem";
 import { consumeStamina } from "../systems/staminaSystem";
+import { mine } from "../systems/miningSystem";
+import { addItem, getItemAmount, removeItem} from "../systems/inventorySystem";
 
 import { initialGameState } from "../systems/gameState";
 import { useState } from "react";
@@ -42,18 +44,45 @@ function Home() {
             stamina: newStamina
         })
     }
+
+    function handleMine(){
+        const result = mine(gameState);
+
+        setGameState(result.gameState);
+        console.log(result)
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+    //Inventário
+    const inventory = gameState.inventory;
+
+    const coalAmount = getItemAmount(inventory, "coal");
+    console.log("Quantidade de carvão no inventário:", coalAmount);
+
+    function handleAddItem() {
+        const newInventory = addItem(inventory, "coal", 5);
+        
+        setGameState({
+            ...gameState,
+            inventory: newInventory
+        });
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     console.log(player)
     console.log(tool)
     console.log(terrain)
     console.log(gameState)
-
+  
 
     return(
         <div>
             <Header></Header>
             <p>{player.name}</p>
             <p>Stamina: {gameState.stamina}</p>
+            <p>Carvão: {coalAmount}</p>
+           <button onClick={handleMine}>Minerar</button>
+            <button onClick={handleAddItem}>Adicionar 5 Carvão</button>
             <button onClick={handleAddStamina}>+ Stamina</button>
             <button onClick={handleConsumeStamina}>- Stamina</button>
         </div>
