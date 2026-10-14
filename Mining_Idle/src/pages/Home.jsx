@@ -63,23 +63,43 @@ function Home() {
     }
 
 
+
     function handleMine() {
         const result = mine(gameState);
-
-        console.log(gameState)
 
         if (result.success) {
             setGameState(result.gameState);
 
             const resource = resources.find(
-                (item) => item.id === result.resourcesId
+                (item) => item.id === result.resourceId
             );
 
-              setMiningMessage(`Você encontrou 1 ${resource.name}!`);
-        } else {
-              setMiningMessage("Stamina insuficiente para minerar.");
+            setMiningMessage(`Você encontrou 1 ${resource.name}!`);
+            return;
+        }
+
+        switch (result.reason) {
+            case "missing_mining_card":
+                setMiningMessage("Você não possui a carta de mineração.");
+                break;
+
+            case "invalid_terrain":
+                setMiningMessage("O terreno selecionado não existe.");
+                break;
+
+            case "no_resources":
+                setMiningMessage("Este terreno não possui recursos.");
+                break;
+
+            case "not_enough_stamina":
+                setMiningMessage("Stamina insuficiente para minerar.");
+                break;
+
+            default:
+                setMiningMessage("Não foi possível minerar.");
         }
     }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
