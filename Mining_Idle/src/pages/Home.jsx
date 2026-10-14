@@ -2,11 +2,12 @@ import Header from "../components/Header";
 import players from "../data/players.json";
 import tools from "../data/tools.json";
 import terrains from "../data/terrains.json";
+import resources from "../data/resources.json";
 
 import { addStamina } from "../systems/staminaSystem";
 import { consumeStamina } from "../systems/staminaSystem";
 import { mine } from "../systems/miningSystem";
-import { addItem, getItemAmount, removeItem} from "../systems/inventorySystem";
+import { addItem, getItemAmount, removeItem } from "../systems/inventorySystem";
 
 import { initialGameState } from "../systems/gameState";
 import { useState } from "react";
@@ -14,6 +15,7 @@ import { useState } from "react";
 
 function Home() {
     const [gameState, setGameState] = useState(initialGameState);
+    const [miningMessage, setMiningMessage] = useState("");
     //O método find() retorna o valor do primeiro elemento do array que satisfizer a função de teste provida
     //Busca do player
     const player = players.find((player) => player.id === gameState.playerId)
@@ -24,7 +26,7 @@ function Home() {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Funções de consumo de Stamina
-    function handleAddStamina(){
+    function handleAddStamina() {
         //Pegue a stamina atual e peça para o sistema calcular quanto será a nova stamina.
         const newStamina = addStamina(gameState.stamina, 10);
 
@@ -36,7 +38,7 @@ function Home() {
     }
 
 
-    function handleConsumeStamina(){
+    function handleConsumeStamina() {
         const newStamina = consumeStamina(gameState.stamina, 10)
 
         setGameState({
@@ -50,45 +52,53 @@ function Home() {
     //Inventário
     const inventory = gameState.inventory;
 
-    const coalAmount = getItemAmount(inventory, "coal");
-    console.log("Quantidade de carvão no inventário:", coalAmount);
 
     function handleAddItem() {
         const newInventory = addItem(inventory, "coal", 5);
-        
+
         setGameState({
             ...gameState,
             inventory: newInventory
         });
     }
 
-    
-function handleMine() {
-    const result = mine(gameState);
 
-    console.log(result);
+    function handleMine() {
+        const result = mine(gameState);
 
-    if (result.success) {
-        setGameState(result.gameState);
-    } else {
-        console.log("Não foi possível minerar: stamina insuficiente.");
+        console.log(gameState)
+
+        if (result.success) {
+            setGameState(result.gameState);
+
+            const resource = resources.find(
+                (item) => item.id === result.resourcesId
+            );
+
+              setMiningMessage(`Você encontrou 1 ${resource.name}!`);
+        } else {
+              setMiningMessage("Stamina insuficiente para minerar.");
+        }
     }
-}
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    console.log(player)
-    console.log(tool)
-    console.log(terrain)
-    console.log(gameState)
-  
 
-    return(
+
+    return (
         <div>
             <Header></Header>
             <p>{player.name}</p>
             <p>Stamina: {gameState.stamina}</p>
-            <p>Carvão: {coalAmount}</p>
-           <button onClick={handleMine}>Minerar</button>
+            <p>{miningMessage}</p>
+            <div>
+                <p>Inventario</p>
+                {resources.map((resource) => (
+                    <p key={resource.id}>
+                        {resource.name}: {getItemAmount(inventory, resource.id)}
+                    </p>
+                ))}
+            </div>
+            <button onClick={handleMine}>Minerar</button>
             <button onClick={handleAddItem}>Adicionar 5 Carvão</button>
             <button onClick={handleAddStamina}>+ Stamina</button>
             <button onClick={handleConsumeStamina}>- Stamina</button>
