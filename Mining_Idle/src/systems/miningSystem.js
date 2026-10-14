@@ -1,13 +1,30 @@
-import {consumeStamina, addStamina} from "../systems/staminaSystem";
-    
+import { consumeStamina } from "./staminaSystem";
+import { addItem } from "./inventorySystem";
 
 export function mine(gameState) {
-    //Verifica Stamina
-    const stamina = gameState.stamina
-    //Calcula o resultado
-    //Cris um novo estado
-    return {
-        sucess: true,
-        gameState: stamina
+    const staminaResult = consumeStamina(gameState.stamina, 10);
+
+    if(!staminaResult.success) {
+        return {
+            success: false,
+            reason: "not_enough_stamina",
+        };
+    }
+
+    const newInventory = addItem(
+        gameState.inventory,
+        "coal",
+        1
+    );
+
+    const newGameState = {
+        ...gameState,
+        stamina: staminaResult.stamina,
+        inventory: newInventory,
     };
+    
+    return{
+        success: true,
+        gameState: newGameState,
+    }
 }

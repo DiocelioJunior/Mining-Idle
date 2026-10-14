@@ -45,12 +45,6 @@ function Home() {
         })
     }
 
-    function handleMine(){
-        const result = mine(gameState);
-
-        setGameState(result.gameState);
-        console.log(result)
-    }
 
     ////////////////////////////////////////////////////////////////////////
     //Inventário
@@ -67,6 +61,19 @@ function Home() {
             inventory: newInventory
         });
     }
+
+    
+function handleMine() {
+    const result = mine(gameState);
+
+    console.log(result);
+
+    if (result.success) {
+        setGameState(result.gameState);
+    } else {
+        console.log("Não foi possível minerar: stamina insuficiente.");
+    }
+}
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     console.log(player)

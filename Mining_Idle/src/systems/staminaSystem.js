@@ -6,5 +6,16 @@ export function addStamina(currentStamina, amount) {
 
 //Função para consumir Stamina 
 export function consumeStamina(currentStamina, amount) {
-    return currentStamina - amount
-}
+    if (currentStamina <= 0) {
+                return {
+            success: false,
+            stamina: currentStamina - amount
+        } 
+    }
+
+        return {
+            success: true,
+            stamina: currentStamina - amount
+        } 
+    }
+
